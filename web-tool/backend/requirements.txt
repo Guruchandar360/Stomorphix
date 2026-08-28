@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+ultralytics
+opencv-python-headless
+numpy
+openai
+firebase-admin
