@@ -11,6 +11,7 @@ web-tool/frontend/.env
 web-tool/frontend/.env.local
 web-tool/frontend/node_modules/
 web-tool/frontend/dist/
+web-tool/frontend/.vercel/
 
 .idea/
 .vscode/

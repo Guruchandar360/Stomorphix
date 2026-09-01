@@ -147,6 +147,22 @@ docker run --rm -p 7860:7860 --env-file .env stomorphix
 
 Open [http://127.0.0.1:7860](http://127.0.0.1:7860).
 
+## Vercel frontend with Hugging Face inference
+
+The React interface can be deployed independently to Vercel while FastAPI and YOLO11s continue running on Hugging Face. Configure the Vercel project with `web-tool/frontend` as its root directory and set these environment variables for Production:
+
+```dotenv
+VITE_API_BASE_URL=https://guruchandarkr-stomata-analyzer.hf.space
+VITE_FIREBASE_API_KEY=your_firebase_web_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_web_app_id
+```
+
+Add the production Vercel domain to both the FastAPI `CORS_ORIGINS` setting and Firebase Authentication's authorized domains. Browser uploads must go directly to Hugging Face rather than through a Vercel Function so that microscopy images are not restricted by Vercel's function payload limit.
+
 ## Generated files
 
 Runtime uploads, annotations, CSV files, and batch archives are written under `web-tool/backend/outputs`. This directory is excluded from Git. Generated artifacts expire according to the cleanup settings in `.env`.

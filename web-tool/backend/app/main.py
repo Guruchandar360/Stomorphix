@@ -1,5 +1,6 @@
 import asyncio
 import json
+import os
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Query, Request, Response, UploadFile
@@ -48,9 +49,20 @@ class BatchCreateRequest(BaseModel):
 app = FastAPI(title="Stomata Morphometry API")
 maintenance_worker = MaintenanceWorker(batch_manager.cleanup_expired)
 
+default_cors_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://stomorphix.vercel.app",
+]
+configured_cors_origins = [
+    origin.strip().rstrip("/")
+    for origin in os.getenv("CORS_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=configured_cors_origins or default_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -264,8 +276,6 @@ async def calculate_morphometry(req: MorphometryRequest, principal=Depends(get_p
 
 
 # Serve React frontend built static files if the static directory exists
-import os
-from pathlib import Path
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 static_dir = BACKEND_DIR / "static"
 if static_dir.exists() and static_dir.is_dir():

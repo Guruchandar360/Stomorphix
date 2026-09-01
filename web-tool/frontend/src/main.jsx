@@ -32,9 +32,14 @@ import {
   getAuthToken
 } from "./firebase.js";
 
-const API_BASE = window.location.origin.includes("127.0.0.1") || window.location.origin.includes("localhost")
-  ? "http://127.0.0.1:8000"
-  : window.location.origin;
+const configuredApiBase = (
+  window.env?.VITE_API_BASE_URL || import.meta.env.VITE_API_BASE_URL || ""
+).replace(/\/$/, "");
+const API_BASE = configuredApiBase || (
+  window.location.origin.includes("127.0.0.1") || window.location.origin.includes("localhost")
+    ? "http://127.0.0.1:8000"
+    : window.location.origin
+);
 
 const confidenceOptions = [
   { label: "Conf: 0.30 (Very Sensitive)", value: "0.30" },
