@@ -1,0 +1,22 @@
+.env
+.env.local
+*.log
+*.pyc
+__pycache__/
+.pytest_cache/
+
+web-tool/backend/.venv/
+web-tool/backend/outputs/
+web-tool/frontend/.env
+web-tool/frontend/.env.local
+web-tool/frontend/node_modules/
+web-tool/frontend/dist/
+web-tool/frontend/.vercel/
+
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Generated Ultralytics dataset indexes
+Data/**/*.cache

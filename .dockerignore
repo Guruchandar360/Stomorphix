@@ -1,0 +1,16 @@
+.git
+.env
+*.log
+*.pyc
+__pycache__/
+
+web-tool/frontend/node_modules/
+web-tool/frontend/dist/
+web-tool/backend/.venv/
+web-tool/backend/outputs/
+
+# Keep comparison artifacts in GitHub, but only send the production weight to Docker.
+models/**
+!models/yolo11s_stomata/
+!models/yolo11s_stomata/weights/
+!models/yolo11s_stomata/weights/best.pt
