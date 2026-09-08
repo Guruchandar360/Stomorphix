@@ -11,6 +11,6 @@ web-tool/backend/outputs/
 
 # Keep comparison artifacts in GitHub, but only send the production weight to Docker.
 models/**
-!models/yolo11s_stomata/
-!models/yolo11s_stomata/weights/
-!models/yolo11s_stomata/weights/best.pt
+!models/yolo11n_stomata/
+!models/yolo11n_stomata/weights/
+!models/yolo11n_stomata/weights/best.pt

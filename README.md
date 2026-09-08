@@ -1,6 +1,6 @@
 # STOMASPOT
 
-STOMASPOT is a React and FastAPI web application for counting stomata in microscopy images with a YOLO11s segmentation model. It returns an annotated image, an editable detection count, a count report, and a complete chat-style summary. Batches of up to 30 images produce downloadable annotated-image and count-report archives.
+STOMASPOT is a React and FastAPI web application for counting stomata in microscopy images with a YOLO11n segmentation model. It returns an annotated image, an editable detection count, a count report, and a complete chat-style summary. Batches of up to 30 images produce downloadable annotated-image and count-report archives.
 
 AI-generated explanations are optional. When no AI API key is configured, the application still performs inference and returns a deterministic count summary, annotated image, and count report.
 
@@ -17,7 +17,6 @@ stomaspot/
 |       `-- val/          # 48 YOLO segmentation labels
 |-- models/
 |   |-- yolo11n_stomata/
-|   |-- yolo11s_stomata/
 |   |-- yolov8n_stomata/
 |   `-- yolov8s_stomata/
 |-- web-tool/
@@ -28,7 +27,7 @@ stomaspot/
 `-- README.md
 ```
 
-Each model directory contains the complete retained training run: configuration, metric curves, confusion matrices, label previews, training and validation previews, result tables and plots, and `weights/best.pt` plus `weights/last.pt`. The web application uses YOLO11s by default.
+Each model directory contains the complete retained training run: configuration, metric curves, confusion matrices, label previews, training and validation previews, result tables and plots, and `weights/best.pt` plus `weights/last.pt`. The web application uses YOLO11n by default.
 
 The `Data` directory contains the model training and validation dataset. Every image in `Data/images/train` or `Data/images/val` has a same-stem YOLO segmentation annotation in the corresponding `Data/labels` directory. The repository contains 500 images and 500 label files in total. Dataset images are stored with Git LFS, while generated Ultralytics `.cache` files are excluded because they can be rebuilt locally.
 
@@ -66,7 +65,7 @@ git lfs pull
 Confirm that the default inference weight exists:
 
 ```powershell
-Get-Item .\models\yolo11s_stomata\weights\best.pt
+Get-Item .\models\yolo11n_stomata\weights\best.pt
 ```
 
 The file should be approximately 20 MB. If it is only a few bytes or contains text beginning with `version https://git-lfs`, run `git lfs pull` again.
@@ -123,14 +122,13 @@ Use the plus button in the chat bar to select one image, several images, or a fo
 
 STOMASPOT reports only stomata counts. It does not calculate or present length, width, area, aspect ratio, perimeter, or physical calibration results.
 
-Each YOLO11s segmentation mask represents one detected stoma. The count equals the number of retained masks at the selected confidence and IoU thresholds. The green outlines allow users to inspect what the model counted before using the result. The magnification selector records whether the uploaded image was acquired at `4x`, `5x`, `10x`, `20x`, `40x`, or `100x`; it does not scale or otherwise change the count.
+Each YOLO11n segmentation mask represents one detected stoma. The count equals the number of retained masks at the selected confidence and IoU thresholds. The green outlines allow users to inspect what the model counted before using the result. The magnification selector records whether the uploaded image was acquired at `4x`, `5x`, `10x`, `20x`, `40x`, or `100x`; it does not scale or otherwise change the count.
 
 ## Model artifacts
 
 | Directory | Architecture | Application role |
 |---|---|---|
-| `models/yolo11n_stomata` | YOLO11n segmentation | Comparison training run |
-| `models/yolo11s_stomata` | YOLO11s segmentation | Default production inference model |
+| `models/yolo11n_stomata` | YOLO11n segmentation | Default production inference model |
 | `models/yolov8n_stomata` | YOLOv8n segmentation | Comparison training run |
 | `models/yolov8s_stomata` | YOLOv8s segmentation | Comparison training run |
 
@@ -142,7 +140,7 @@ STOMASPOT_MODEL_PATH=C:\path\to\stomaspot\models\yolo11n_stomata\weights\best.pt
 
 ## Optional Docker run
 
-Docker packages the React build, FastAPI server, and default YOLO11s weight into one image:
+Docker packages the React build, FastAPI server, and default YOLO11n weight into one image:
 
 ```powershell
 docker build -t stomaspot .
@@ -153,7 +151,7 @@ Open [http://127.0.0.1:7860](http://127.0.0.1:7860).
 
 ## Vercel frontend with Hugging Face inference
 
-The React interface can be deployed independently to Vercel while FastAPI and YOLO11s continue running on Hugging Face. Configure the Vercel project with `web-tool/frontend` as its root directory and set these environment variables for Production:
+The React interface can be deployed independently to Vercel while FastAPI and YOLO11n continue running on Hugging Face. Configure the Vercel project with `web-tool/frontend` as its root directory and set these environment variables for Production:
 
 ```dotenv
 VITE_API_BASE_URL=https://guruchandarkr-stomata-analyzer.hf.space

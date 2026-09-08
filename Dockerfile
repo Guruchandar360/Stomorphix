@@ -28,7 +28,7 @@ COPY web-tool/backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only the model weights needed for inference
-COPY models/yolo11s_stomata/weights/best.pt ./models/yolo11s_stomata/weights/best.pt
+COPY models/yolo11n_stomata/weights/best.pt ./models/yolo11n_stomata/weights/best.pt
 
 # Copy backend app and config files
 COPY web-tool/backend/app ./web-tool/backend/app

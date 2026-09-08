@@ -17,7 +17,7 @@ function absoluteUrl(apiBase, value) {
 function statusText(job) {
   if (job.status === "creating") return "Preparing batch upload";
   if (job.status === "receiving") return `Uploading ${job.uploaded_files} of ${job.expected_files} images`;
-  if (job.status === "queued") return "Batch queued for YOLO11 Small inference";
+  if (job.status === "queued") return "Batch queued for YOLO11 Nano inference";
   if (job.status === "processing") {
     return `Analyzing ${Math.min(job.processed_files + 1, job.expected_files)} of ${job.expected_files}`;
   }

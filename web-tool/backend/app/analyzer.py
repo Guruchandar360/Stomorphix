@@ -17,7 +17,7 @@ from ultralytics import YOLO
 
 
 ROOT_DIR = Path(__file__).resolve().parents[3]
-DEFAULT_MODEL_PATH = ROOT_DIR / "models" / "yolo11s_stomata" / "weights" / "best.pt"
+DEFAULT_MODEL_PATH = ROOT_DIR / "models" / "yolo11n_stomata" / "weights" / "best.pt"
 _model_path_override = os.getenv("STOMASPOT_MODEL_PATH", "").strip()
 MODEL_PATH = Path(_model_path_override).resolve() if _model_path_override else DEFAULT_MODEL_PATH
 UPLOAD_DIR = OUTPUT_DIR / "uploads"
